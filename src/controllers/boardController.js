@@ -8,7 +8,7 @@ const createNew = async(req, res, next) => {
 
     //Điều hướng sang service, có kết quả thì trả về client
     const createdBoard = await boardService.createNew(req.body)
-    //Có kết quả thì trả về phái client
+    //Có kết quả thì trả về phia client
     res.status(StatusCodes.CREATED).json(createdBoard)
   } catch (error) {
     next(error)
