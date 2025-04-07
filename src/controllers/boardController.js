@@ -18,6 +18,22 @@ const createNew = async(req, res, next) => {
   }
 }
 
+const getDetails = async(req, res, next) => {
+  try {
+    //throw new ApiError (StatusCodes.BAD_GATEWAY , 'nguyenquandev test error')
+    const boardId = req.params.id
+    //Điều hướng sang service, có kết quả thì trả về client
+    const board = await boardService.getDetails(boardId)
+    res.status(StatusCodes.OK).json(board)
+  } catch (error) {
+    next(error)
+    //res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    // errors: error.message
+    //})
+  }
+}
+
 export const boardController = {
-  createNew
+  createNew,
+  getDetails
 }
