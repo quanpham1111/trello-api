@@ -68,7 +68,7 @@ const getDetails = async (id) => {
       } }
     ]).toArray()
     console.log(result)
-    return result[0] || {}
+    return result[0] || null
   } catch (error) {
     throw new Error(error)
   }
@@ -80,3 +80,7 @@ export const boardModel = {
   findOneById,
   getDetails
 }
+
+//boardID: 67f3a6bbbbd2eb0f3e24641f
+//columnId: 67f4bde89e8c204a473387ee
+//cardId: 67f4bf8a9e8c204a473387f4
