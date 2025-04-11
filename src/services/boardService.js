@@ -46,7 +46,23 @@ const getDetails = async (boardId) => {
     throw error
   }
 }
+
+const update = async (boardId,reqBody) => {
+  try {
+    const updateData = {
+      ...reqBody,
+      updatedAt: Date.now()
+    }
+    const updatedBoard = await boardModel.update(boardId, updateData)
+    //trả kết quả về, trong servic phải có return không thì nó sẽ chạy mãi
+
+    return updatedBoard
+  } catch (error) {
+    throw error
+  }
+}
 export const boardService = {
   createNew,
-  getDetails
+  getDetails,
+  update
 }

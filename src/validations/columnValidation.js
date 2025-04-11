@@ -1,15 +1,11 @@
 import { StatusCodes } from 'http-status-codes'
 import Joi from 'joi'
 import ApiError from '~/utils/ApiError'
-import { BOARD_TYPES } from '~/utils/constants'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validator'
 const createNew = async(req, res, next) => {
   const correctCondition = Joi.object({
-    title: Joi.string().required().min(3).max(50).trim().strict().messages({
-
-    }),
-    description: Joi.string().required().min(3).max(256).trim().strict(),
-    type: Joi.string().valid(BOARD_TYPES.PUBLIC, BOARD_TYPES.PRIVATE).required()
+    boardId: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
+    title: Joi.string().required().min(3).max(50).trim().strict()
   })
 
   try {
@@ -29,14 +25,11 @@ const createNew = async(req, res, next) => {
 const update = async(req, res, next) => {
   //lưu ý không require() trong trường hợp Update
   const correctCondition = Joi.object({
-    title: Joi.string().min(3).max(50).trim().strict().messages({
-
-    }),
-    description: Joi.string().min(3).max(256).trim().strict(),
-    type: Joi.string().valid(BOARD_TYPES.PUBLIC, BOARD_TYPES.PRIVATE),
-    columnOrderIds: Joi.array().items(
+    //boardId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
+    title: Joi.string().min(3).max(50).trim().strict(),
+    cardOrderIds: Joi.array().items(
       Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)
-)
+    )
   })
 
   try {
@@ -53,7 +46,7 @@ const update = async(req, res, next) => {
 
   }
 }
-export const boardValidation = {
+export const columnValidation = {
   createNew,
   update
 }
