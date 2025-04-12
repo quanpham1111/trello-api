@@ -49,8 +49,24 @@ const update = async(req, res, next) => {
     //})
   }
 }
+
+const moveCardToDifferentColumn = async(req, res, next) => {
+  try {
+    //throw new ApiError (StatusCodes.BAD_GATEWAY , 'nguyenquandev test error')
+    //Điều hướng sang service, có kết quả thì trả về client
+    const result = await boardService.update( req.body)
+
+    res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+    //res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    // errors: error.message
+    //})
+  }
+}
 export const boardController = {
   createNew,
   getDetails,
-  update
+  update,
+  moveCardToDifferentColumn
 }
